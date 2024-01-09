@@ -1,5 +1,5 @@
 const { sendMessageWhatapp } = require("../services/whatsappService");
-const { MessageText, MessageList } = require("./whatsappModels");
+const { MessageText, MessageList, MessageButtons } = require("./whatsappModels");
 
 async function Process(textUser, number){
     textUser = textUser.toLowerCase();
@@ -18,6 +18,14 @@ async function Process(textUser, number){
     } else if(textUser.includes('adiós') || textUser.includes('bye') || textUser.includes('me voy')){
         //DESPEDIR
         let model = MessageText("Ve con cuidado", number);
+        models.push(model);
+    } else if(textUser.includes('comprar')){
+        //COMPRAR
+        let model = MessageButtons(number);
+        models.push(model);
+    } else if(textUser.includes('vender')){
+        //VENDER
+        let model = MessageText("Regístrate en el siguiente formulario para poder evaluarte: https://forms.office.com/pages/responsepage.aspx?id=pj5axnwPC0CJNFptwXBWRUc_p6zZtKNLo7oJew0LsgtURDhUSVVGMEY2QzRDRlVMNzBFM044M1NKRy4u", number);
         models.push(model);
     } else {
         //NO ENTIENDO
