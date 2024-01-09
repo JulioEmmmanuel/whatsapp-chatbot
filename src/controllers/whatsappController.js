@@ -38,7 +38,9 @@ const receivedMessage = async (req, res) => {
 
             myConsole.log(text);
 
-            await sendMessageWhatapp("el usuario dijo: " + text, number);
+            //En Mexico el numero Whatsapp lo registra como 521 + num, hay que eliminar el 1
+            const num = number.split("").splice(2, 1).join("");
+            await sendMessageWhatapp("el usuario dijo: " + text, num);
         }
 
         res.send("EVENT_RECEIVED");
