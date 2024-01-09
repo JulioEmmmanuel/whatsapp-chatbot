@@ -1,5 +1,6 @@
 const fs = require("fs");
 const { sendMessageWhatapp } = require("../services/whatsappService");
+const { SampleImage, SampleText, SampleAudio, SampleVideo, SampleDocument, SampleButtons, SampleList, SampleLocation } = require("../shared/sampleModels");
 const myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
 
 
@@ -33,16 +34,38 @@ const receivedMessage = async (req, res) => {
 
         if(typeof messageObject != "undefined"){
             var messages = messageObject[0];
-            var text = GetTextUser(messages);
             var number = messages["from"];
-
-            myConsole.log(text);
-
             //En Mexico el numero Whatsapp lo registra como 521 + num, hay que eliminar el 1
             const numbers = number.split("")
             numbers.splice(2, 1)
             const to = numbers.join("");
-            await sendMessageWhatapp("el usuario dijo: " + text, to);
+
+            var text = GetTextUser(messages);
+            myConsole.log(text);
+
+            let model;
+            if(text === "text"){
+                model = SampleText("hola", to);
+            } else if(text === "image"){
+                model = SampleImage(to);
+            } else if(text === "video"){
+                model = SampleVideo(to);
+            } else if(text === "audio"){
+                model = SampleAudio(to);
+            } else if(text === "document"){
+                model = SampleDocument(to);
+            } else if(text === "button"){
+                model = SampleButtons(to);
+            } else if(text === "list"){
+                model = SampleList(to);
+            } else if(text === "location"){
+                model = SampleLocation(to);
+            } else {
+                model = SampleText("no entiendo");
+            }
+
+            await sendMessageWhatapp(model);
+
         }
 
         res.send("EVENT_RECEIVED");

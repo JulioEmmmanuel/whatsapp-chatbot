@@ -1,16 +1,6 @@
 const axios = require("axios");
 
-async function sendMessageWhatapp(textResponse, number){
-    const body = {
-        "messaging_product": "whatsapp",
-        "preview_url": false,
-        "recipient_type": "individual",
-        "to": number,
-        "type": "text",
-        "text": {
-            "body": textResponse
-        }
-    }
+async function sendMessageWhatapp(body){
 
     const url = "https://graph.facebook.com/v17.0/221917804329137/messages"
 
