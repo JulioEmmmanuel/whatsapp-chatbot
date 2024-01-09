@@ -4,10 +4,11 @@ async function sendMessageWhatapp(textResponse, number){
     const body = {
         "messaging_product": "whatsapp",
         "to": number,
+        "recipient_type": "individual",
+        "type": "text",
         "text": {
             "body": textResponse
-        },
-        "type": "text"
+        }
     }
 
     const url = "https://graph.facebook.com/v17.0/221917804329137/messages"
@@ -21,7 +22,7 @@ async function sendMessageWhatapp(textResponse, number){
 
         console.log(data);
     } catch(error){
-        console.log(error);
+        console.log(error.message);
     }
     
 }
