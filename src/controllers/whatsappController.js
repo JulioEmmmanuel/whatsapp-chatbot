@@ -1,6 +1,7 @@
 const fs = require("fs");
 const { sendMessageWhatapp } = require("../services/whatsappService");
 const { SampleImage, SampleText, SampleAudio, SampleVideo, SampleDocument, SampleButtons, SampleList, SampleLocation } = require("../shared/sampleModels");
+const { Process } = require("../shared/processMessage");
 const myConsole = new console.Console(fs.createWriteStream("./logs.txt"));
 
 
@@ -43,28 +44,10 @@ const receivedMessage = async (req, res) => {
             var text = GetTextUser(messages);
             myConsole.log(text);
 
-            let model;
-            if(text === "text"){
-                model = SampleText("hola", to);
-            } else if(text === "image"){
-                model = SampleImage(to);
-            } else if(text === "video"){
-                model = SampleVideo(to);
-            } else if(text === "audio"){
-                model = SampleAudio(to);
-            } else if(text === "document"){
-                model = SampleDocument(to);
-            } else if(text === "button"){
-                model = SampleButtons(to);
-            } else if(text === "list"){
-                model = SampleList(to);
-            } else if(text === "location"){
-                model = SampleLocation(to);
-            } else {
-                model = SampleText("no entiendo");
+            if(text != ""){
+                Process(text, to);
             }
 
-            await sendMessageWhatapp(model);
 
         }
 
