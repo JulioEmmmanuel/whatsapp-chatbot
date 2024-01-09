@@ -9,6 +9,8 @@ async function Process(textUser, number){
         //SALUDAR
         let model = MessageText("Hola, un gusto saludarte", number);
         models.push(model);
+        let modelList = MessageList(number);
+        models.push(modelList);
     } else if(textUser.includes('gracias')){
         //AGRADECER
         let model = MessageText("Gracias a ti por escribirme", number);
