@@ -1,5 +1,5 @@
 const { sendMessageWhatapp } = require("../services/whatsappService");
-const { MessageText, MessageList, MessageButtons } = require("./whatsappModels");
+const { MessageText, MessageList, MessageButtons, MessageLocation } = require("./whatsappModels");
 
 async function Process(textUser, number){
     textUser = textUser.toLowerCase();
@@ -26,6 +26,14 @@ async function Process(textUser, number){
     } else if(textUser.includes('vender')){
         //VENDER
         let model = MessageText("Regístrate en el siguiente formulario para poder evaluarte: https://forms.office.com/pages/responsepage.aspx?id=pj5axnwPC0CJNFptwXBWRUc_p6zZtKNLo7oJew0LsgtURDhUSVVGMEY2QzRDRlVMNzBFM044M1NKRy4u", number);
+        models.push(model);
+    } else if(textUser.includes('agencia')){
+        //AGENCIA
+        let model = MessageLocation(number)
+        models.push(model);
+    } else if(textUser.includes('contacto')){
+        //CONTACTO
+        let model = MessageText("**Centro de contacto:**\n912345678", number);
         models.push(model);
     } else {
         //NO ENTIENDO

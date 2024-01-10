@@ -99,8 +99,24 @@ function MessageButtons(number){
     return data;
 }
 
+function MessageLocation(number){
+    const data = {
+        "messaging_product": "whatsapp",
+        "to": number,
+        "type": "location",
+        "location": {
+            "latitude": "22.12047091713681",
+            "longitude": "-100.99089860677546",
+            "name": "Museo Laberinto de las Ciencias y las Artes",
+            "address": "Blvd. Antonio Rocha Cordero S/N, Tierra Blanca, 78364 San Luis Potosí, S.L.P."
+        }
+    }
+    return data;
+}
+
 module.exports ={
     MessageText,
     MessageList,
-    MessageButtons
+    MessageButtons,
+    MessageLocation
 }
